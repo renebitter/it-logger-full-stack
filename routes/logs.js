@@ -27,9 +27,9 @@ router.post(
     check("tech", "tech is required.").not().isEmpty(),
   ],
   async (req, res) => {
-    try {
-      const { message, tech, attention, date } = req.body;
+    const { message, tech, attention, date } = req.body;
 
+    try {
       const newLog = new Log({
         message,
         tech,
