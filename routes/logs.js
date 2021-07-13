@@ -94,4 +94,38 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+// @route POST api/logs
+// @desc SEARCH logs
+router.post("/search/:text", async (req, res) => {
+  const textSearch = req.params.text;
+
+  try {
+    // TODO: Add conditional like:
+    // if (textToString === "" || null || undefined)
+    const logs = await Log.find({
+      $text: { $search: textSearch },
+    });
+
+    res.json(logs);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+// @route POST api/logs
+// @desc SEARCH logs fallback route on empty input
+router.post("/search/", async (req, res) => {
+  try {
+    const logs = await Log.find({}).sort({
+      date: "descending",
+    });
+
+    res.json(logs);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;
