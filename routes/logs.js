@@ -6,6 +6,7 @@ const Log = require("../models/Log");
 // @route GET api/logs
 // @desc GET all logs
 router.get("/", async (req, res) => {
+  console.log("Get Route");
   try {
     const logs = await Log.find().sort({
       date: "descending",
@@ -97,6 +98,7 @@ router.delete("/:id", async (req, res) => {
 // @route POST api/logs
 // @desc SEARCH logs
 router.post("/search/:text", async (req, res) => {
+  console.log("Search Route");
   const textSearch = req.params.text;
 
   try {
@@ -104,21 +106,6 @@ router.post("/search/:text", async (req, res) => {
     // if (textToString === "" || null || undefined)
     const logs = await Log.find({
       $text: { $search: textSearch },
-    });
-
-    res.json(logs);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-});
-
-// @route POST api/logs
-// @desc SEARCH logs fallback route on empty input
-router.post("/search/", async (req, res) => {
-  try {
-    const logs = await Log.find({}).sort({
-      date: "descending",
     });
 
     res.json(logs);

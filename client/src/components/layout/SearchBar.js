@@ -2,12 +2,17 @@ import { useRef } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { searchLogs } from "../../actions/logActions";
+import { getLogs } from "../../actions/logActions";
 
-const SearchBar = ({ searchLogs }) => {
+const SearchBar = ({ searchLogs, getLogs }) => {
   const text = useRef("");
 
-  const onChange = (e) => {
-    searchLogs(text.current.value);
+  const onChange = () => {
+    if (text.current.value === "") {
+      getLogs();
+    } else {
+      searchLogs(text.current.value);
+    }
   };
 
   const onSubmit = (e) => {
@@ -16,6 +21,7 @@ const SearchBar = ({ searchLogs }) => {
 
   const clearInput = () => {
     text.current.value = "";
+    onChange();
   };
 
   return (
@@ -45,6 +51,7 @@ const SearchBar = ({ searchLogs }) => {
 
 SearchBar.propTypes = {
   searchLogs: PropTypes.func.isRequired,
+  getLogs: PropTypes.func.isRequired,
 };
 
-export default connect(null, { searchLogs })(SearchBar);
+export default connect(null, { searchLogs, getLogs })(SearchBar);
