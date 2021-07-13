@@ -15,7 +15,14 @@ export const getLogs = () => async (dispatch) => {
   try {
     setLoading();
 
-    const res = await fetch("/api/logs");
+    const res = await fetch("/api/logs", {
+      method: "GET",
+      body: JSON.stringify(),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
     const data = await res.json();
 
     dispatch({
@@ -108,7 +115,14 @@ export const searchLogs = (text) => async (dispatch) => {
   try {
     setLoading();
 
-    const res = await fetch(`/api/logs?q=${text}`);
+    const res = await fetch(`/api/logs/search/${text}`, {
+      method: "POST",
+      body: JSON.stringify(),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
     const data = await res.json();
 
     dispatch({
@@ -118,7 +132,7 @@ export const searchLogs = (text) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: LOGS_ERROR,
-      payload: err.response.statusText,
+      payload: err,
     });
   }
 };

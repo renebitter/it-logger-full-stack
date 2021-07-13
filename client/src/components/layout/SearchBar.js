@@ -10,10 +10,18 @@ const SearchBar = ({ searchLogs }) => {
     searchLogs(text.current.value);
   };
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  const clearInput = () => {
+    text.current.value = "";
+  };
+
   return (
     <nav style={{ marginBottom: "30px" }} className="blue">
       <div className="nav-wrapper">
-        <form>
+        <form onSubmit={onSubmit}>
           <div className="input-field">
             <input
               id="search"
@@ -25,7 +33,9 @@ const SearchBar = ({ searchLogs }) => {
             <label className="label-icon" htmlFor="search">
               <i className="material-icons">search</i>
             </label>
-            <i className="material-icons">close</i>
+            <i className="material-icons" onClick={clearInput}>
+              close
+            </i>
           </div>
         </form>
       </div>

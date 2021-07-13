@@ -8,6 +8,7 @@ const LogSchema = mongoose.Schema({
 
   message: {
     type: String,
+    text: true,
     required: true,
   },
 
