@@ -6,7 +6,6 @@ const Log = require("../models/Log");
 // @route GET api/logs
 // @desc GET all logs
 router.get("/", async (req, res) => {
-  console.log("Get Route");
   try {
     const logs = await Log.find().sort({
       date: "descending",
@@ -98,7 +97,6 @@ router.delete("/:id", async (req, res) => {
 // @route POST api/logs
 // @desc SEARCH logs
 router.post("/search/:text", async (req, res) => {
-  console.log("Search Route");
   const textSearch = req.params.text;
 
   try {
