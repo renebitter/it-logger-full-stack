@@ -4,8 +4,6 @@ const path = require("path");
 
 const app = express();
 
-app.get("/", (req, res) => res.json({ msg: "LOCAL NODE SERVER RUNNING" }));
-
 // Connect Database
 connectDB();
 
